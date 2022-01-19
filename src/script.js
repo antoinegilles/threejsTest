@@ -36,8 +36,75 @@ function screen() {
 
 }
 
+function clavier() {
+
+
+    const geometry = new THREE.BoxGeometry(.3, .3, .2);
+    const material = new THREE.MeshLambertMaterial({ color: "red" });
+
+
+    const clavier = new THREE.Group()
+
+    for (let i = 0; i < 10; i++) {
+
+        let positionX = -2.5
+        let positionY = -2.4
+        let positionZ = 1
+        let rotationX = 1.9
+
+        const touche1 = new THREE.Mesh(geometry, material)
+        touche1.position.x = positionX - i
+        touche1.position.z = positionZ
+        touche1.position.y = positionY
+        touche1.rotation.x = rotationX
+
+        clavier.add(touche1)
+
+    }
+
+
+    // const geometry2 = new THREE.BoxGeometry(.3, .3, .2);
+    // const material2 = new THREE.MeshLambertMaterial({ color: "red" });
+    // const touche2 = new THREE.Mesh(geometry2, material2)
+    // touche2.position.x = -2.1
+    // touche2.position.z = 1
+    // touche2.position.y = -2.4
+    // touche2.rotation.x = 1.9
+
+    // const geometry3 = new THREE.BoxGeometry(.3, .3, .2);
+    // const material3 = new THREE.MeshLambertMaterial({ color: "red" });
+    // const touche3 = new THREE.Mesh(geometry3, material3)
+    // touche3.position.x = -1.7
+    // touche3.position.z = 1
+    // touche3.position.y = -2.4
+    // touche3.rotation.x = 1.9
+
+
+    return clavier
+
+}
+function keyboard() {
+
+    const geometry1 = new THREE.BoxGeometry(6.5, 4, .2);
+    const material1 = new THREE.MeshLambertMaterial({ color: "grey" });
+    const base = new THREE.Mesh(geometry1, material1)
+    base.rotation.x = 5
+    base.position.y = -2.75
+    base.position.z = 1.9
+
+    const keyboard = new THREE.Group()
+
+    keyboard.add(base)
+
+    return keyboard
+}
+
 let screenScene = screen()
+let keyboardScene = keyboard()
+let clavierScene = clavier()
 scene.add(screenScene)
+scene.add(keyboardScene)
+scene.add(clavierScene)
 
 // material.color = new THREE.Color(0xffffff)
 // material.metalness = 0.2
@@ -82,7 +149,7 @@ window.addEventListener('resize', () => {
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 1, 1000)
+const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 1, 1000)
 camera.position.x = 0
 camera.position.y = 0
 camera.position.z = 1
@@ -91,7 +158,7 @@ scene.add(camera)
 const light2 = gui.addFolder('Light 2')
 light2.add(pointLight2.position, 'y').min(-3).max(6).setValue(0)
 light2.add(pointLight2.position, 'x').min(-3).max(6).setValue(0)
-light2.add(pointLight2.position, 'z').min(-6).max(6).setValue(30)
+light2.add(pointLight2.position, 'z').min(-900).max(900).setValue(900)
 light2.add(pointLight2, 'intensity').min(0).max(6).setValue(.4)
 
 const colorLight = {
@@ -116,7 +183,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 // Control camera
 let controls
-controls = new OrbitControls( camera, renderer.domElement );
+controls = new OrbitControls(camera, renderer.domElement);
 controls.listenToKeyEvents(window); // optional
 controls.enableDamping = true
 //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
@@ -133,7 +200,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 function animate() {
 
-    requestAnimationFrame( animate );
+    requestAnimationFrame(animate);
 
     controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
     render();
@@ -142,7 +209,7 @@ function animate() {
 
 function render() {
 
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 
 }
 
