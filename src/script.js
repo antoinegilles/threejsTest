@@ -44,21 +44,108 @@ function clavier() {
 
 
     const clavier = new THREE.Group()
+    let z = 0
+    let j = 0
+    let k = 0
+    let l = 0
+    let m = 0
+    for (let i = 0; i < 53; i++) {
+        if (i < 10) {
+            z += 0.5
+            let positionX = -2.6
+            let positionY = -2.43
+            let positionZ = 1
+            let rotationX = 1.9
 
-    for (let i = 0; i < 10; i++) {
+            const touche1 = new THREE.Mesh(geometry, material)
+            touche1.position.x = positionX + z
+            touche1.position.z = positionZ
+            touche1.position.y = positionY
+            touche1.rotation.x = rotationX
 
-        let positionX = -2.5
-        let positionY = -2.4
-        let positionZ = 1
-        let rotationX = 1.9
+            clavier.add(touche1)
+        } else if (i >= 10 && i < 20) {
 
-        const touche1 = new THREE.Mesh(geometry, material)
-        touche1.position.x = positionX - i
-        touche1.position.z = positionZ
-        touche1.position.y = positionY
-        touche1.rotation.x = rotationX
+            j += 0.5
+            let positionX = -2.6
+            let positionY = -2.44
+            let positionZ = 1
+            let rotationX = 1.9
 
-        clavier.add(touche1)
+            const touche1 = new THREE.Mesh(geometry, material)
+            touche1.position.x = positionX + j
+            touche1.position.z = positionZ + 0.4
+            touche1.position.y = positionY - 0.1
+            touche1.rotation.x = rotationX
+
+            clavier.add(touche1)
+
+        } else if (i >= 20 && i < 30) {
+            k += 0.5
+            let positionX = -2.6
+            let positionY = -2.45
+            let positionZ = 1
+            let rotationX = 1.9
+
+            const touche1 = new THREE.Mesh(geometry, material)
+            touche1.position.x = positionX + k
+            touche1.position.z = positionZ + 0.8
+            touche1.position.y = positionY - 0.2
+            touche1.rotation.x = rotationX
+
+            clavier.add(touche1)
+
+        } else if (i >= 30 && i < 40) {
+            l += 0.5
+            let positionX = -2.6
+            let positionY = -2.47
+            let positionZ = 1
+            let rotationX = 1.9
+
+            const touche1 = new THREE.Mesh(geometry, material)
+            touche1.position.x = positionX + l
+            touche1.position.z = positionZ + 1.2
+            touche1.position.y = positionY - 0.3
+            touche1.rotation.x = rotationX
+
+            clavier.add(touche1)
+        }
+        else if (i >= 40 && i < 53) {
+
+            if (  i == 44 || i == 45 || i == 47) {
+                null
+            } else if (i == 46) {
+                m += 0.5
+                let positionX = -2.6
+                let positionY = -2.4
+                let positionZ = 1
+                let rotationX = 1.9
+                const geometry2 = new THREE.BoxGeometry(1.5, .3, .2);
+
+                const touche1 = new THREE.Mesh(geometry2, material)
+                touche1.position.x = positionX + m + 0.3
+                touche1.position.z = positionZ + 1.6
+                touche1.position.y = positionY - 0.5
+                touche1.rotation.x = rotationX
+                clavier.add(touche1)
+            } else {
+                m += 0.5
+                let positionX = -2.6
+                let positionY = -2.4
+                let positionZ = 1
+                let rotationX = 1.9
+
+                const touche1 = new THREE.Mesh(geometry, material)
+                touche1.position.x = positionX + m
+                touche1.position.z = positionZ + 1.6
+                touche1.position.y = positionY - 0.5
+                touche1.rotation.x = rotationX
+                clavier.add(touche1)
+
+            }
+
+        }
+
 
     }
 
