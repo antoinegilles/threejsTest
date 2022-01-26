@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import * as dat from 'dat.gui'
+import { TextureLoader } from 'three';
 
 // texture 
 // const TEXTURE = new THREE.TextureLoader()
@@ -13,6 +14,8 @@ import * as dat from 'dat.gui'
 // Debug
 const gui = new dat.GUI()
 
+//Texture loader
+const textureLoader = new THREE.TextureLoader()
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -26,12 +29,16 @@ function screen() {
     // const base = new THREE.Mesh(geometry1, material1)
 
     const geometry2 = new RoundedBoxGeometry(6.5, 4.5, .06);
-    const material2 = new THREE.MeshStandardMaterial({ color: "#ced9d1" });
-    material2.metalness = .3
-    material2.roughness = 0
+    const material2 = new THREE.MeshBasicMaterial({ color: "#ced9d1" , map: textureLoader.load('/img/website.png')});
     const surfaceEcran = new THREE.Mesh(geometry2, material2)
-    surfaceEcran.position.z = -.01
+    surfaceEcran.position.z = .02
+    surfaceEcran.position.x = -.1
+    surfaceEcran.position.y = -.4
+    surfaceEcran.rotation.x = -.07
+    surfaceEcran.scale.y = .79
+    surfaceEcran.scale.x = .94
 
+    
     const geometryEcran = new RoundedBoxGeometry(6, 3.5, .06);
     const materialEcran = new THREE.MeshStandardMaterial({ color: "black" });
     const ecran = new THREE.Mesh(geometryEcran, materialEcran)
@@ -42,6 +49,7 @@ function screen() {
 
     const screen = new THREE.Group()
 
+    
     let base = new OBJLoader()
     base.load('object/plane.obj', function (object) {
         object.scale.x = .075
@@ -72,7 +80,8 @@ function screen() {
     })
 
 
-    screen.add(ecran)
+    // screen.add(ecran)
+    screen.add(surfaceEcran)
 
     return screen
 
