@@ -12,7 +12,7 @@ import { TextureLoader } from 'three';
 
 
 // Debug
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
 
 //Texture loader
 const textureLoader = new THREE.TextureLoader()
@@ -32,11 +32,11 @@ function screen() {
     const material2 = new THREE.MeshBasicMaterial({ color: "#ced9d1" , map: textureLoader.load('/img/website.png')});
     const surfaceEcran = new THREE.Mesh(geometry2, material2)
     surfaceEcran.position.z = .02
-    surfaceEcran.position.x = -.1
+    surfaceEcran.position.x = 0
     surfaceEcran.position.y = -.4
     surfaceEcran.rotation.x = -.07
     surfaceEcran.scale.y = .79
-    surfaceEcran.scale.x = .94
+    surfaceEcran.scale.x = .90
 
     
     const geometryEcran = new RoundedBoxGeometry(6, 3.5, .06);
@@ -65,12 +65,12 @@ function screen() {
     let contourEcran = new OBJLoader()
     contourEcran.load('object/contourEcran.obj', function (object) {
         object.scale.x = .126
-        object.scale.y = .1
+        object.scale.y = .035
         object.scale.z = .075
         object.rotation.x = 1.5
         object.rotation.z = 0
         object.position.y = -0.4
-        object.position.z = -0.1
+        object.position.z = 0
         object.children[0].material.color.r = 0
         object.children[0].material.color.g = 0
         object.children[0].material.color.b = 0
@@ -106,7 +106,7 @@ function clavier() {
     toucheEntree.position.y = positionEntreeY - 0.3
     toucheEntree.rotation.x = rotationEntreeX
 
-    scene.add(toucheEntree)
+    clavier.add(toucheEntree)
 
     // touche delete
     let positionDeleteX = -2.6
@@ -124,7 +124,7 @@ function clavier() {
     toucheDelete.position.y = positionDeleteY - 0.2
     toucheDelete.rotation.x = rotationDeleteX
 
-    scene.add(toucheDelete)
+    clavier.add(toucheDelete)
 
     // Pad numérique
     const geometryPad = new THREE.BoxBufferGeometry(1.4, .8, .2);
@@ -137,7 +137,7 @@ function clavier() {
     pad.position.z = 3.3
     pad.position.y = -3.1
     pad.rotation.x = 1.86
-    scene.add(pad)
+    clavier.add(pad)
 
     // const geometryEntree2 = new THREE.BoxBufferGeometry(.3, .3, .1);
     // const materialEntree2 = new THREE.MeshStandardMaterial({ color: "yellow" });
@@ -323,12 +323,7 @@ function keyboard() {
     return keyboard
 }
 
-let screenScene = screen()
-let keyboardScene = keyboard()
-let clavierScene = clavier()
-scene.add(screenScene)
-scene.add(keyboardScene)
-scene.add(clavierScene)
+
 
 // material.color = new THREE.Color(0xffffff)
 // material.metalness = 0.2
@@ -338,10 +333,10 @@ scene.add(clavierScene)
 // Lights
 
 const pointLight = new THREE.PointLight(0xffffff, .8, 100)
-pointLight.position.x = -3
-pointLight.position.y = 10
-pointLight.position.z = 30
-pointLight.rotation.x = 2
+pointLight.position.x = 1
+pointLight.position.y = 1
+pointLight.position.z = 9
+pointLight.intensity = 1
 
 scene.add(pointLight)
 
@@ -355,19 +350,19 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () => {
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
+// window.addEventListener('resize', () => {
+//     // Update sizes
+//     sizes.width = window.innerWidth
+//     sizes.height = window.innerHeight
 
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+//     // Update camera
+//     camera.aspect = sizes.width / sizes.height
+//     camera.updateProjectionMatrix()
 
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
+//     // Update renderer
+//     renderer.setSize(sizes.width, sizes.height)
+//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+// })
 
 /**
  * Camera
@@ -375,16 +370,25 @@ window.addEventListener('resize', () => {
 // Base camera
 const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 1, 1000)
 camera.position.x = 0
-camera.position.y = 0
-camera.position.z = 1
+camera.position.y = -2
+camera.position.z = 100
 scene.add(camera)
 
+const computer = new THREE.Group()
+let screenScene = screen()
+let keyboardScene = keyboard()
+let clavierScene = clavier()
 
-const light2 = gui.addFolder('Light 2')
-light2.add(pointLight.position, 'y').min(-10).max(10).setValue(1)
-light2.add(pointLight.position, 'x').min(-10).max(10).setValue(1)
-light2.add(pointLight.position, 'z').min(-10).max(10).setValue(9)
-light2.add(pointLight, 'intensity').min(0).max(6).setValue(1)
+computer.add(screenScene)
+computer.add(keyboardScene)
+computer.add(clavierScene)
+
+scene.add(computer)
+// const light2 = gui.addFolder('Light 2')
+// light2.add(pointLight.position, 'y').min(-10).max(10).setValue(1)
+// light2.add(pointLight.position, 'x').min(-10).max(10).setValue(1)
+// light2.add(pointLight.position, 'z').min(-10).max(10).setValue(9)
+// light2.add(pointLight, 'intensity').min(0).max(6).setValue(1)
 
 // const colorLight = {
 //     color: 0xffffff
@@ -396,7 +400,7 @@ light2.add(pointLight, 'intensity').min(0).max(6).setValue(1)
 //Helper
 
 
-const pointLightHelper = new THREE.PointLightHelper(pointLight, 3)
+// const pointLightHelper = new THREE.PointLightHelper(pointLight, 3)
 // scene.add(pointLightHelper)
 
 
@@ -405,30 +409,42 @@ const pointLightHelper = new THREE.PointLightHelper(pointLight, 3)
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    alpha: true
+    alpha: true,
+    antialias: true
 })
 // Control camera
-let controls
-controls = new OrbitControls(camera, renderer.domElement);
-controls.listenToKeyEvents(window); // optional
-controls.enableDamping = true
-//controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+// let controls
+// controls = new OrbitControls(camera, renderer.domElement);
+// controls.listenToKeyEvents(window); // optional
+// controls.enableDamping = true
+// //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
-controls.enableDamping = true; // an animation loop is requiblack when either damping or auto-rotation are enabled
-controls.dampingFactor = 0.05;
+// controls.enableDamping = true; // an animation loop is requiblack when either damping or auto-rotation are enabled
+// controls.dampingFactor = 0.05;
 
-controls.screenSpacePanning = false;
-controls.minDistance = 100;
-controls.maxDistance = 500;
+// controls.screenSpacePanning = false;
+// controls.minDistance = 100;
+// controls.maxDistance = 500;
 
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+ const clock = new THREE.Clock()
+
 function animate() {
+
+    // Update objects
+    
+    const t = clock.getElapsedTime()
+    computer.rotation.x = THREE.MathUtils.lerp(computer.rotation.x, Math.cos(t / 2) / 3 + 0.15, 0.001)
+    computer.rotation.y = THREE.MathUtils.lerp(computer.rotation.y, Math.sin(t / 4) / 3, 0.01)
+    computer.rotation.z = THREE.MathUtils.lerp(computer.rotation.z, Math.sin(t / 4) / 20, 0.01)
+    computer.position.y = THREE.MathUtils.lerp(computer.position.y, (-5 + Math.sin(t)) / 5, 0.01)
+
 
     requestAnimationFrame(animate);
 
-    controls.update(); // only requiblack if controls.enableDamping = true, or if controls.autoRotate = true
+    // controls.update(); // only requiblack if controls.enableDamping = true, or if controls.autoRotate = true
     render();
 
 }
