@@ -1,18 +1,9 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-import * as dat from 'dat.gui'
-import { TextureLoader } from 'three';
-
-// texture 
-// const TEXTURE = new THREE.TextureLoader()
-// const NORMALTEXTURE = TEXTURE.load('/texture/text1.png')
 
 
-// Debug
-// const gui = new dat.GUI()
 
 //Texture loader
 const textureLoader = new THREE.TextureLoader()
@@ -23,13 +14,10 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 function screen() {
-    // const geometry1 = new THREE.BoxBufferGeometry(6, 4, .065);
 
-    // const material1 = new THREE.MeshStandardMaterial({ color: "white" });
-    // const base = new THREE.Mesh(geometry1, material1)
 
     const geometry2 = new RoundedBoxGeometry(6.5, 4.5, .06);
-    const material2 = new THREE.MeshBasicMaterial({ color: "#ced9d1" , map: textureLoader.load('/img/website.png')});
+    const material2 = new THREE.MeshBasicMaterial({ color: "#ced9d1", map: textureLoader.load('/img/website.png') });
     const surfaceEcran = new THREE.Mesh(geometry2, material2)
     surfaceEcran.position.z = .02
     surfaceEcran.position.x = 0
@@ -38,7 +26,7 @@ function screen() {
     surfaceEcran.scale.y = .79
     surfaceEcran.scale.x = .90
 
-    
+
     const geometryEcran = new RoundedBoxGeometry(6, 3.5, .06);
     const materialEcran = new THREE.MeshStandardMaterial({ color: "black" });
     const ecran = new THREE.Mesh(geometryEcran, materialEcran)
@@ -49,7 +37,7 @@ function screen() {
 
     const screen = new THREE.Group()
 
-    
+
     let base = new OBJLoader()
     base.load('object/plane.obj', function (object) {
         object.scale.x = .075
@@ -61,7 +49,7 @@ function screen() {
         object.color = "black"
         screen.add(object)
     })
- 
+
     let contourEcran = new OBJLoader()
     contourEcran.load('object/contourEcran.obj', function (object) {
         object.scale.x = .126
@@ -75,12 +63,11 @@ function screen() {
         object.children[0].material.color.g = 0
         object.children[0].material.color.b = 0
         console.log(object)
-    
+
         screen.add(object)
     })
 
 
-    // screen.add(ecran)
     screen.add(surfaceEcran)
 
     return screen
@@ -139,21 +126,9 @@ function clavier() {
     pad.rotation.x = 1.86
     clavier.add(pad)
 
-    // const geometryEntree2 = new THREE.BoxBufferGeometry(.3, .3, .1);
-    // const materialEntree2 = new THREE.MeshStandardMaterial({ color: "yellow" });
-    // const toucheEntree2 = new THREE.Mesh(geometryEntree2, materialEntree2)
-    // toucheEntree2.position.x = positionEntreeX +.1
-    // toucheEntree2.position.z = positionEntreeZ +.1 
-    // toucheEntree2.position.y = positionEntreeY
-    // toucheEntree2.rotation.x = rotationEntreeX
-
-    // scene.add(toucheEntree2)
-
-
     // touches standart
     const geometry = new THREE.BoxBufferGeometry(.3, .3, .2);
     const material = new THREE.MeshStandardMaterial();
-    // { color: "black", reflectivity:0.3989999999999999, roughness:0.285 }
     material.color = new THREE.Color("#363835")
     material.roughness = 0
 
@@ -272,43 +247,14 @@ function clavier() {
 
 
     }
-
-
-    // const geometry2 = new THREE.BoxGeometry(.3, .3, .2);
-    // const material2 = new THREE.MeshStandardMaterial({ color: "black" });
-    // const touche2 = new THREE.Mesh(geometry2, material2)
-    // touche2.position.x = -2.1
-    // touche2.position.z = 1
-    // touche2.position.y = -2.4
-    // touche2.rotation.x = 1.9
-
-    // const geometry3 = new THREE.BoxGeometry(.3, .3, .2);
-    // const material3 = new THREE.MeshStandardMaterial({ color: "black" });
-    // const touche3 = new THREE.Mesh(geometry3, material3)
-    // touche3.position.x = -1.7
-    // touche3.position.z = 1
-    // touche3.position.y = -2.4
-    // touche3.rotation.x = 1.9
-
-
     return clavier
 
 }
 
 function keyboard() {
 
-    // const geometry1 = new RoundedBoxGeometry(6.5, 4, .2, 3, 1);
-    // const material1 = new THREE.MeshStandardMaterial({ color: "#ced9d1" });
-    // material1.roughness = 0
-    // material1.metalness = .3
-    // const base = new THREE.Mesh(geometry1, material1)
-    // base.rotation.x = 5
-    // base.position.y = -2.75
-    // base.position.z = 1.9
-
     const keyboard = new THREE.Group()
 
-    // keyboard.add(base)
     let myPlane = new OBJLoader()
     myPlane.load('object/plane.obj', function (object) {
         object.scale.x = .075
@@ -323,12 +269,6 @@ function keyboard() {
     return keyboard
 }
 
-
-
-// material.color = new THREE.Color(0xffffff)
-// material.metalness = 0.2
-// material.roughness = 0.2
-// material.normalMap = NORMALTEXTURE
 
 // Lights
 
@@ -350,20 +290,6 @@ const sizes = {
     height: window.innerHeight
 }
 
-// window.addEventListener('resize', () => {
-//     // Update sizes
-//     sizes.width = window.innerWidth
-//     sizes.height = window.innerHeight
-
-//     // Update camera
-//     camera.aspect = sizes.width / sizes.height
-//     camera.updateProjectionMatrix()
-
-//     // Update renderer
-//     renderer.setSize(sizes.width, sizes.height)
-//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-// })
-
 /**
  * Camera
  */
@@ -376,6 +302,7 @@ scene.add(camera)
 
 const computer = new THREE.Group()
 let screenScene = screen()
+screenScene.position.y=.02
 let keyboardScene = keyboard()
 let clavierScene = clavier()
 
@@ -384,25 +311,6 @@ computer.add(keyboardScene)
 computer.add(clavierScene)
 
 scene.add(computer)
-// const light2 = gui.addFolder('Light 2')
-// light2.add(pointLight.position, 'y').min(-10).max(10).setValue(1)
-// light2.add(pointLight.position, 'x').min(-10).max(10).setValue(1)
-// light2.add(pointLight.position, 'z').min(-10).max(10).setValue(9)
-// light2.add(pointLight, 'intensity').min(0).max(6).setValue(1)
-
-// const colorLight = {
-//     color: 0xffffff
-// }
-// light2.addColor(colorLight, 'color').onChange(() => {
-//     pointLight2.color.set(colorLight.color)
-
-// })
-//Helper
-
-
-// const pointLightHelper = new THREE.PointLightHelper(pointLight, 3)
-// scene.add(pointLightHelper)
-
 
 /**
  * Renderer
@@ -412,39 +320,22 @@ const renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true
 })
-// Control camera
-// let controls
-// controls = new OrbitControls(camera, renderer.domElement);
-// controls.listenToKeyEvents(window); // optional
-// controls.enableDamping = true
-// //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
-
-// controls.enableDamping = true; // an animation loop is requiblack when either damping or auto-rotation are enabled
-// controls.dampingFactor = 0.05;
-
-// controls.screenSpacePanning = false;
-// controls.minDistance = 100;
-// controls.maxDistance = 500;
-
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
- const clock = new THREE.Clock()
+const clock = new THREE.Clock()
 
 function animate() {
 
     // Update objects
-    
+
     const t = clock.getElapsedTime()
     computer.rotation.x = THREE.MathUtils.lerp(computer.rotation.x, Math.cos(t / 2) / 3 + 0.15, 0.001)
     computer.rotation.y = THREE.MathUtils.lerp(computer.rotation.y, Math.sin(t / 4) / 3, 0.01)
     computer.rotation.z = THREE.MathUtils.lerp(computer.rotation.z, Math.sin(t / 4) / 20, 0.01)
     computer.position.y = THREE.MathUtils.lerp(computer.position.y, (-5 + Math.sin(t)) / 5, 0.01)
 
-
     requestAnimationFrame(animate);
-
-    // controls.update(); // only requiblack if controls.enableDamping = true, or if controls.autoRotate = true
     render();
 
 }
