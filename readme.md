@@ -1,5 +1,9 @@
-# Three.js Starter
-Courtesy of Bruno Simon of https://threejs-journey.xyz/
+# Demo
+<a href="https://antoinegilles.com">https://antoinegilles.com</a>
+
+
+# Three.js Computer
+Create a 3D Computer
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
